@@ -22,7 +22,7 @@ class _AuthenticationState extends State<Authentication> {
   _AuthenticationData _data                             = new _AuthenticationData();
   bool _obscureTextLogin                                = true;
 
-  TextEditingController matriculaController  = new TextEditingController();
+  TextEditingController tituloEleitorController  = new TextEditingController();
   TextEditingController codigoController  = new TextEditingController();
 
   String _validateCode(String value) {
@@ -32,9 +32,9 @@ class _AuthenticationState extends State<Authentication> {
     return null;
   }
 
-  String _validateMatricula(String value) {
+  String _validateTituloEleitor(String value) {
     if (value.length <= 0) {
-      return 'O campo *Matrícula* é obrigatório!';
+      return 'O campo *Título de Eleitor* é obrigatório!';
     }
     return null;
   }
@@ -47,23 +47,17 @@ class _AuthenticationState extends State<Authentication> {
   void submit() {
     if (this._formKey.currentState.validate()) {
       var url = "http://localhost:8080/guardiaomobile/autenticacao/";
-      var body = {"matricula": matriculaController.value.text, "codeAuth": codigoController.value.text};
+      var body = {"titulo": tituloEleitorController.value.text, "codeAuth": codigoController.value.text};
 
       http.post(url, body: body).then((response) {
         if (response.statusCode == 200) {
           var temp = jsonDecode(response.body);
           _saveAuthorization(temp["resCodeAuth"]);
-
-
           Navigator.push(context, MaterialPageRoute(builder: (context) => new Login()));
-
-          //print(temp["resCodeAuth"]);
         }
-
         if (response.statusCode == 401) {
           showInSnackBarError("Código de Autenticação inválido!");
         }
-
         if (response.statusCode == 400) {
           showInSnackBarError("Código de Autenticação já utilizado!");
         }
@@ -83,7 +77,7 @@ class _AuthenticationState extends State<Authentication> {
             fontSize: 16.0,
             fontFamily: "WorkSansSemiBold"),
       ),
-      backgroundColor: Util.hexToColor("#bd362f"),
+      backgroundColor: hexToColor("#bd362f"),
       duration: Duration(seconds: 6),
     ));
   }
@@ -109,8 +103,8 @@ class _AuthenticationState extends State<Authentication> {
                       hintText: 'Digite aqui sua matrícula',
                       labelText: 'Matrícula'
                   ),
-                  validator: this._validateMatricula,
-                  controller: matriculaController,
+                  validator: this._validateTituloEleitor,
+                  controller: tituloEleitorController,
                   onSaved: (String value){
                     this._data.matricula = value;
                   },

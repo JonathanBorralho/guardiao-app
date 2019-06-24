@@ -5,6 +5,7 @@ import 'package:guardiao_mobile/model/Auth.dart';
 import 'package:guardiao_mobile/service/AuthService.dart';
 import 'package:guardiao_mobile/util/Util.dart';
 import 'package:guardiao_mobile/ui/home/Home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -64,7 +65,7 @@ class _LoginState extends State<Login> {
             fontSize: 16.0,
             fontFamily: "WorkSansSemiBold"),
       ),
-      backgroundColor: Util.hexToColor("#bd362f"),
+      backgroundColor: hexToColor("#bd362f"),
       duration: Duration(seconds: 6),
     ));
   }
@@ -133,15 +134,36 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void saveToken(auth) async{
-    int idAuth = await authService.saveAuth(auth);
-    await authService.dbHelper.close();
+  void saveToken(Auth auth) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('authToken', auth.token);
+
+    if(prefs.get('authToken') != null){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => new Home()));
+    }else{
+      showInSnackBarError("Erro ao salvar Token! Tente novamente ou abra um chamado na Central TI!");
+    }
+
+  /*
+    Auth authDB = await authService.getOnlyOneAuth();
+    int idAuth = null;
+
+    if(authDB != null){
+      authDB.setToken(auth.token);
+      idAuth = await authService.updateAuth(authDB);
+      await authService.dbHelper.close();
+    }else{
+      idAuth = await authService.saveAuth(auth);
+      await authService.dbHelper.close();
+    }
+
 
     if(idAuth != null){
       Navigator.push(context, MaterialPageRoute(builder: (context) => new Home()));
     }else{
-      showInSnackBarError("Erro ao salvaor Token! Tente novamente ou abra um chamado na Central TI!");
+      showInSnackBarError("Erro ao salvar Token! Tente novamente ou abra um chamado na Central TI!");
     }
+    */
   }
 
   void login(String usuario, String senha) async {

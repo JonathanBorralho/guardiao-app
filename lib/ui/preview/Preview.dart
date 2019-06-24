@@ -10,6 +10,7 @@ class Preview extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Material Page Reveal',
+      debugShowCheckedModeBanner: false,
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),

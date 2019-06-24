@@ -5,6 +5,14 @@ class Auth{
 
   Auth(this._token);
 
+  void setId(int id){
+    this._id = id;
+  }
+
+  void setToken(String token){
+    this._token = token;
+  }
+
   Auth.map(dynamic obj) {
     this._id = obj['id'];
     this._token = obj['token'];

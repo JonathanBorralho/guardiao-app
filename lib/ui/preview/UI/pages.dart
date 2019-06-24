@@ -6,10 +6,10 @@ import 'package:guardiao_mobile/ui/login/Login.dart';
 final pages = [
   new PageViewModel(
       const Color(0xFF548CFF),
-      'assets/img/icon_brasao.gif',
-      'TRE/MA',
+      'assets/img/logoTRE01.png',
+      '',
       'Bem-vindo ao Guardião, aplicativo oficial e portal de acesso aos sistemas do TRE/MA!',
-      'assets/plane.png',
+      'assets/img/icon_brasao.gif',
       true),
 ];
 
@@ -43,12 +43,12 @@ class Page extends StatelessWidget {
           new Transform(
             transform: new Matrix4.translationValues(0.0, 50.0 * (1.0 - percentVisible) ,0.0),
             child: new Padding(
-                padding: new EdgeInsets.only(bottom: 25.0),
+                padding: new EdgeInsets.fromLTRB(0.0, 0.0, 75.0, 0.0),
                 child:
                 new Image.asset(
                     viewModel.heroAssetPath,
-                    width: 200.0,
-                    height: 200.0),
+                    width: 300.0,
+                    height: 300.0),
             ),
           ),
           new Transform(
@@ -83,7 +83,7 @@ class Page extends StatelessWidget {
           new Transform(
             transform: new Matrix4.translationValues(0.0, 30.0 * (1.0 - percentVisible) ,0.0),
             child: new Padding(
-              padding: new EdgeInsets.only(bottom: 75.0),
+              padding: new EdgeInsets.only(bottom: 60.0),
               child: new RaisedButton(
                 child: const Text('Ir para o Guardião!'),
                 color: Theme.of(context).accentColor,

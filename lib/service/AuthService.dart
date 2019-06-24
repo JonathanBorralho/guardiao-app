@@ -19,13 +19,20 @@ class AuthService{
     return result;
   }
 
+  Future<int> updateAuth(Auth auth) async {
+    var dbClient = await dbHelper.db;
+    var result = await dbClient.update(tableAuth, auth.toMap(),
+                  where: '$columnId = ?', whereArgs: [auth.id]);
+    return result;
+  }
+
   Future<Auth> getOnlyOneAuth() async {
     var dbClient = await dbHelper.db;
     List<Map> result = await dbClient.query(tableAuth, columns: [columnId, columnToken]);
 
 //  var result = await dbClient.rawQuery('SELECT * FROM $tableNote WHERE $columnId = $id');
     if (result.length > 0) {
-      return new Auth.fromMap(result.first);
+      return new Auth.fromMap(result.last);
     }
 
     return null;

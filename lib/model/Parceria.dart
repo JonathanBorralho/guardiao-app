@@ -10,7 +10,11 @@ class Parceria{
   final String endereco;
   final String bairro;
   final String tempoDuracaoParceria;
-  final String image;
+
+  final String logomarcaUrl;
+  final String tabelaInfoParceiroUrl;
+  final String termoParceriaUrl;
+
   final String facebook;
   final String instagram;
   final String email;
@@ -21,7 +25,8 @@ class Parceria{
   final String telefone2;
 
   Parceria({this.idParceria, this.nomeParceria, this.idRamoAtividade, this.ramoAtividade, this.idSuperRamoAtividade, this.superRamoAtividade,
-    this.descricaoRamoAtividade, this.descontos, this.endereco, this.bairro, this.tempoDuracaoParceria,this.image, this.facebook, this.instagram, this.email, this.googleMaps, this.site,
+    this.descricaoRamoAtividade, this.descontos, this.endereco, this.bairro, this.tempoDuracaoParceria, this.logomarcaUrl,
+    this.tabelaInfoParceiroUrl, this.termoParceriaUrl, this.facebook, this.instagram, this.email, this.googleMaps, this.site,
     this.whatsapp, this.telefone1, this.telefone2});
 
   factory Parceria.fromJson(Map<String, dynamic> json) {
@@ -37,7 +42,11 @@ class Parceria{
         endereco: json["endereco"],
         bairro: json["bairro"],
         tempoDuracaoParceria: json["tempoDuracaoParceria"],
-        image: json["image"],
+
+        logomarcaUrl: json["logomarcaUrl"],
+        tabelaInfoParceiroUrl: json["tabelaInfoParceiroUrl"],
+        termoParceriaUrl: json["termoParceriaUrl"],
+
         facebook: json["facebook"],
         instagram: json["instagram"],
         email: json["email"],
@@ -57,7 +66,7 @@ class Parceria{
   String retornaRamoAtividade() {
     String ramoAtividade = '';
     if (this.superRamoAtividade != '') {
-      ramoAtividade = this.superRamoAtividade + ' - '+this.ramoAtividade + '';
+      ramoAtividade = this.superRamoAtividade  + '\n' + this.ramoAtividade;
     } else {
       ramoAtividade = this.ramoAtividade + '';
     }
